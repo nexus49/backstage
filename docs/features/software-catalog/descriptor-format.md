@@ -22,6 +22,8 @@ humans. However, the structure and semantics is the same in both cases.
 - [Kind: Component](#kind-component)
 - [Kind: Template](#kind-template)
 - [Kind: API](#kind-api)
+- [Kind: Group](#kind-group)
+- [Kind: User](#kind-user)
 
 ## Overall Shape Of An Entity
 
@@ -30,7 +32,7 @@ software catalog API.
 
 ```js
 {
-  "apiVersion": "backstage.io/v1alpha1",
+  "apiVersion": "backstage.io/v1beta1",
   "kind": "Component",
   "metadata": {
     "annotations": {
@@ -59,7 +61,7 @@ software catalog API.
 The corresponding descriptor file that generated it may look as follows:
 
 ```yaml
-apiVersion: backstage.io/v1alpha1
+apiVersion: backstage.io/v1beta1
 kind: Component
 metadata:
   name: artist-web
@@ -112,7 +114,7 @@ specifications with e.g. kubernetes object manifests, or when an organization
 adds their own specific kinds of entity to the catalog.
 
 Early versions of the catalog will be using alpha/beta versions, e.g.
-`backstage.io/v1alpha1`, to signal that the format may still change. After that,
+`backstage.io/v1beta1`, to signal that the format may still change. After that,
 we will be using `backstage.io/v1` and up.
 
 ### `metadata` [required]
@@ -258,10 +260,10 @@ characters in total.
 
 Describes the following entity kind:
 
-| Field        | Value                   |
-| ------------ | ----------------------- |
-| `apiVersion` | `backstage.io/v1alpha1` |
-| `kind`       | `Component`             |
+| Field        | Value                  |
+| ------------ | ---------------------- |
+| `apiVersion` | `backstage.io/v1beta1` |
+| `kind`       | `Component`            |
 
 A Component describes a software component. It is typically intimately linked to
 the source code that constitutes the component, and should be what a developer
@@ -271,7 +273,7 @@ artifact.
 Descriptor files for this kind may look as follows.
 
 ```yaml
-apiVersion: backstage.io/v1alpha1
+apiVersion: backstage.io/v1beta1
 kind: Component
 metadata:
   name: artist-web
@@ -289,7 +291,7 @@ shape, this kind has the following structure.
 
 ### `apiVersion` and `kind` [required]
 
-Exactly equal to `backstage.io/v1alpha1` and `Component`, respectively.
+Exactly equal to `backstage.io/v1beta1` and `Component`, respectively.
 
 ### `spec.type` [required]
 
@@ -354,10 +356,10 @@ names of other entities of the `kind` `API`.
 
 Describes the following entity kind:
 
-| Field        | Value                   |
-| ------------ | ----------------------- |
-| `apiVersion` | `backstage.io/v1alpha1` |
-| `kind`       | `Template`              |
+| Field        | Value                  |
+| ------------ | ---------------------- |
+| `apiVersion` | `backstage.io/v1beta1` |
+| `kind`       | `Template`             |
 
 A Template describes a skeleton for use with the Scaffolder. It is used for
 describing what templating library is supported, and also for documenting the
@@ -367,7 +369,7 @@ variables that the template requires using
 Descriptor files for this kind may look as follows.
 
 ```yaml
-apiVersion: backstage.io/v1alpha1
+apiVersion: backstage.io/v1beta1
 kind: Template
 metadata:
   name: react-ssr-template
@@ -402,7 +404,7 @@ shape, this kind has the following structure.
 
 ### `apiVersion` and `kind` [required]
 
-Exactly equal to `backstage.io/v1alpha1` and `Template`, respectively.
+Exactly equal to `backstage.io/v1beta1` and `Template`, respectively.
 
 ### `metadata.title` [required]
 
@@ -465,10 +467,10 @@ the same repository but only a single `template.yaml` registered in backstage.
 
 Describes the following entity kind:
 
-| Field        | Value                   |
-| ------------ | ----------------------- |
-| `apiVersion` | `backstage.io/v1alpha1` |
-| `kind`       | `API`                   |
+| Field        | Value                  |
+| ------------ | ---------------------- |
+| `apiVersion` | `backstage.io/v1beta1` |
+| `kind`       | `API`                  |
 
 An API describes an interface that can be exposed by a component. The API can be
 defined in different formats, like [OpenAPI](https://swagger.io/specification/),
@@ -479,7 +481,7 @@ defined in different formats, like [OpenAPI](https://swagger.io/specification/),
 Descriptor files for this kind may look as follows.
 
 ```yaml
-apiVersion: backstage.io/v1alpha1
+apiVersion: backstage.io/v1beta1
 kind: API
 metadata:
   name: artist-api
@@ -509,7 +511,7 @@ shape, this kind has the following structure.
 
 ### `apiVersion` and `kind` [required]
 
-Exactly equal to `backstage.io/v1alpha1` and `API`, respectively.
+Exactly equal to `backstage.io/v1beta1` and `API`, respectively.
 
 ### `spec.type` [required]
 
@@ -571,3 +573,32 @@ group of people in an organizational structure.
 
 The definition of the API, based on the format defined by `spec.type`. This
 field is required.
+
+## Kind: Group
+
+Describes the following entity kind:
+
+| Field        | Value                  |
+| ------------ | ---------------------- |
+| `apiVersion` | `backstage.io/v1beta1` |
+| `kind`       | `Group`                |
+
+A group describes an organizational entity, such as for example a team, a
+business unit, or a loose collection of people in an interest group. Members of
+these groups are modeled in the catalog as kind [`User`](#kind-user).
+
+> TODO: add more detail
+
+## Kind: User
+
+Describes the following entity kind:
+
+| Field        | Value                  |
+| ------------ | ---------------------- |
+| `apiVersion` | `backstage.io/v1beta1` |
+| `kind`       | `User`                 |
+
+A user describes a person, such as an employee, a contractor, or similar. Users
+belong to [`Group`](#kind-group) entities in the catalog.
+
+> TODO: add more detail
