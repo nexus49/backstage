@@ -93,11 +93,12 @@ export const getGitHubRepositoryTempFolder = async (
   parsedGitLocation.git_suffix = false;
 
   if (!parsedGitLocation.ref) {
-    parsedGitLocation.ref = await defaultBranch(
-      parsedGitLocation.toString('https'),
-    );
+    parsedGitLocation.ref = 'master';
+    /// TODO
+    // await defaultBranch(
+    //   parsedGitLocation.toString('https'),
+    // );
   }
-
   return path.join(
     // fs.realpathSync fixes a problem with macOS returning a path that is a symlink
     fs.realpathSync(os.tmpdir()),

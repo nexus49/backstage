@@ -97,7 +97,8 @@ export class GithubReaderProcessor implements LocationProcessor {
       ] = url.pathname.split('/');
 
       if (
-        url.hostname !== 'github.com' ||
+        (url.hostname !== 'github.com' &&
+          url.hostname !== 'github.tools.sap') ||
         empty !== '' ||
         userOrOrg === '' ||
         repoName === '' ||
@@ -109,7 +110,15 @@ export class GithubReaderProcessor implements LocationProcessor {
 
       // Removing the "blob" part
       url.pathname = [empty, userOrOrg, repoName, ...restOfPath].join('/');
-      url.hostname = 'raw.githubusercontent.com';
+      if (url.hostname === 'github.tools.sap') {
+        url.hostname = 'raw.github.tools.sap';
+        if (process.env.GITHUB_ACCESS_TOKEN) {
+          url.username = process.env.GITHUB_ACCESS_TOKEN;
+        }
+      } else {
+        url.hostname = 'raw.githubusercontent.com';
+      }
+
       url.protocol = 'https';
 
       return url;

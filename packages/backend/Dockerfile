@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 # The skeleton contains the package.json of each package in the monorepo,
 # and along with yarn.lock and the root package.json, that's enough to run yarn install.
 ADD yarn.lock package.json skeleton.tar ./
-
+RUN apt update && apt install -y cookiecutter && rm -rf /var/lib/apt/lists/*
 RUN yarn install --frozen-lockfile --production
 
 # This will copy the contents of the dist-workspace when running the build-image command.

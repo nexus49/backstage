@@ -26,7 +26,7 @@ export default async function createPlugin({ logger }: PluginEnvironment) {
   preparers.register('file', filePreparer);
   preparers.register('github', githubPreparer);
 
-  const githubClient = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
+  const githubClient = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN, baseUrl: process.env.GITHUB_URL });
   const publisher = new GithubPublisher({ client: githubClient });
 
   const dockerClient = new Docker();

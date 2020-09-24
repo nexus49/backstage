@@ -92,10 +92,12 @@ const Root: FC<{}> = ({ children }) => (
       <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
       <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
       <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+      <SidebarItem icon={HomeIcon} to="/welcome" text="Welcome" />
       {/* End global nav */}
       <SidebarDivider />
       <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
       <SidebarItem icon={RuleIcon} to="lighthouse" text="Lighthouse" />
+      <SidebarItem icon={RuleIcon} to="gcp-projects" text="GCP" />
       <SidebarItem
         icon={graphiQLRouteRef.icon!}
         to={graphiQLRouteRef.path}
